@@ -1,0 +1,59 @@
+def compute_errors(true_values, predicted_values):
+    # Compute Mean Absolute Error (MAE)
+    mae = np.abs(true_values - predicted_values).mean()
+
+    # Compute Root Mean Squared Error (RMSE)
+    rmse = np.sqrt(((true_values - predicted_values) ** 2).mean())
+
+    # Compute Relative Error (RE)
+    numerator = np.sqrt(np.sum((true_values - predicted_values) ** 2))
+    denominator = np.sqrt(np.sum(true_values ** 2))
+    re = numerator / denominator
+
+    return mae, rmse, re
+
+df_100 = pd.read_csv("pred_100.csv")
+ft_100 = df_100['ft']
+print("_____________100 data points_____________")
+
+mae_100, rmse, re  = compute_errors(f_t_analytical, ft_100)
+print(f"(MAE): {mae_100:.2e}")
+print(f"(RMSE): {rmse:.2e}")
+print(f"(RE): {re:.2e}")
+
+df_100 = pd.read_csv("pred_50.csv")
+ft_100 = df_100['ft']
+print("_____________50 data points_____________")
+
+mae_50, rmse, re  = compute_errors(f_t_analytical, ft_100)
+print(f"(MAE): {mae_50:.2e}")
+print(f"(RMSE): {rmse:.2e}")
+print(f"(RE): {re:.2e}")
+
+df_100 = pd.read_csv("pred_20.csv")
+ft_100 = df_100['ft']
+print("_____________20 data points_____________")
+
+mae_20, rmse, re  = compute_errors(f_t_analytical, ft_100)
+print(f"(MAE): {mae_20:.2e}")
+print(f"(RMSE): {rmse:.2e}")
+print(f"(RE): {re:.2e}")
+
+df_100 = pd.read_csv("pred_10.csv")
+ft_100 = df_100['ft']
+print("_____________10 data points_____________")
+
+mae_10, rmse, re  = compute_errors(f_t_analytical, ft_100)
+print(f"(MAE): {mae_10:.2e}")
+print(f"(RMSE): {rmse:.2e}")
+print(f"(RE): {re:.2e}")
+
+
+plt.figure(figsize=(10, 6))
+plt.plot([100, 50, 20, 10], [mae_100, mae_50, mae_20, mae_10], marker='o', linestyle='-', color='b')
+plt.xlabel('Number of Data Points')
+plt.ylabel('Mean Absolute Error (MAE)')
+plt.title('MAE vs Number of Data Points for Missing Term')
+plt.grid(True)
+plt.savefig('MAE_Missing_Term.png')
+plt.show()
